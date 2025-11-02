@@ -1,50 +1,50 @@
-// Datos: tus preguntas con correctIndex, más explicaciones añadidas
+// Datos: tus preguntas con correctIndex, mÃ¡s explicaciones aÃ±adidas
 const questionsBase = [
   {
-    question: "¿Qué tipo de carga eléctrica tienen los protones?",
+    question: "Â¿Que tipo de carga electrica tienen los protones?",
     options: ["Negativa","Positiva","Neutra","Variable"],
     correctIndex: 1,
-    explanation: "El protón posee la carga elemental +e; por definición, su carga es positiva."
+    explanation: "El proton posee la carga elemental +e; por definicion, su carga es positiva."
   },
   {
     question: "La fuerza entre dos cargas aumenta si:",
     options: ["Aumenta la distancia","Disminuye la carga de una","Disminuye la distancia entre ellas","No depende de la distancia"],
     correctIndex: 2,
-    explanation: "Por la ley de Coulomb F = k|qq‚|/r²; al disminuir la distancia r, la fuerza aumenta con 1/r²."
+    explanation: "Por la ley de Coulomb F = k|qÂqâ€š|/rÂ²; al disminuir la distancia r, la fuerza aumenta con 1/rÂ²."
   },
   {
-    question: "El campo eléctrico en un punto se define como:",
-    options: ["Energía por unidad de carga","Fuerza por unidad de carga","Voltaje por distancia","Corriente por resistencia"],
+    question: "El campo electrico en un punto se define como:",
+    options: ["Energia por unidad de carga","Fuerza por unidad de carga","Voltaje por distancia","Corriente por resistencia"],
     correctIndex: 1,
     explanation: "E = F/q. Es la fuerza que experimenta una carga positiva de prueba por unidad de carga."
   },
   {
-    question: "Una partícula con carga positiva se mueve en la dirección del campo eléctrico porque:",
-    options: ["Es atraída por potenciales más bajos","Es repelida por potenciales bajos","No siente fuerza","Depende del material"],
+    question: "Una particula con carga positiva se mueve en la direcciÃ³n del campo electrico porque:",
+    options: ["Es atraida por potenciales mas bajos","Es repelida por potenciales bajos","No siente fuerza","Depende del material"],
     correctIndex: 0,
-    explanation: "La fuerza es F = qE. Para q>0, apunta como E. Además, E = V, por lo que va hacia potencial menor."
+    explanation: "La fuerza es F = qE. Para q>0, apunta como E. Ademas, E = V, por lo que va hacia potencial menor."
   },
   {
-    question: "El potencial eléctrico se mide en:",
+    question: "El potencial electrico se mide en:",
     options: ["Coulombios","Voltios","Newtons","Amperios"],
     correctIndex: 1,
     explanation: "El potencial (diferencia de potencial) se mide en voltios: 1 V = 1 J/C."
   },
   {
-    question: "La corriente eléctrica es:",
-    options: ["Energía que circula","Flujo de carga por tiempo","Fuerza entre cargas","Movimiento de fotones"],
+    question: "La corriente electrica es:",
+    options: ["Energia que circula","Flujo de carga por tiempo","Fuerza entre cargas","Movimiento de fotones"],
     correctIndex: 1,
-    explanation: "I = ”Q/”t: cantidad de carga que atraviesa una sección por unidad de tiempo."
+    explanation: "I = â€Q/â€t: cantidad de carga que atraviesa una seccion por unidad de tiempo."
   },
   {
-    question: "Según la ley de Ohm:",
-    options: ["V = I · R","V = R / I","R = I / V","I = R + V"],
+    question: "Segun la ley de Ohm:",
+    options: ["V = I Â· R","V = R / I","R = I / V","I = R + V"],
     correctIndex: 0,
-    explanation: "La ley de Ohm relaciona voltaje, corriente y resistencia: V = I·R."
+    explanation: "La ley de Ohm relaciona voltaje, corriente y resistencia: V = IÂ·R."
   },
   {
     question: "En un circuito con resistencias en serie:",
-    options: ["La corriente es igual en todas","El voltaje es igual","La resistencia total es menor","No hay caída de tensión"],
+    options: ["La corriente es igual en todas","El voltaje es igual","La resistencia total es menor","No hay caÃ­da de tensiÃ³n"],
     correctIndex: 0,
     explanation: "En serie circula la misma corriente por todos los elementos; el voltaje se reparte."
   },
@@ -56,69 +56,69 @@ const questionsBase = [
   },
   {
     question: "El capacitor almacena:",
-    options: ["Carga eléctrica","Corriente eléctrica","Campo magnético","Energía térmica"],
+    options: ["Carga elÃ©ctrica","Corriente elÃ©ctrica","Campo magnÃ©tico","EnergÃ­a tÃ©rmica"],
     correctIndex: 0,
-    explanation: "Un capacitor almacena carga en sus placas y energía en el campo eléctrico entre ellas."
+    explanation: "Un capacitor almacena carga en sus placas y energÃ­a en el campo elÃ©ctrico entre ellas."
   },
   {
     question: "La Ley de corrientes de Kirchhoff establece que:",
-    options: ["La suma de corrientes que entran es igual a la que sale","La suma de voltajes es cero","La corriente total es igual al voltaje total","La energía se disipa en calor"],
+    options: ["La suma de corrientes que entran es igual a la que sale","La suma de voltajes es cero","La corriente total es igual al voltaje total","La energÃ­a se disipa en calor"],
     correctIndex: 0,
     explanation: "LCK: la suma algebraica de corrientes en un nodo es cero; lo que entra debe salir."
   },
   {
-    question: "El campo magnético se mide en:",
+    question: "El campo magnetico se mide en:",
     options: ["Tesla","Newton","Weber","Faradio"],
     correctIndex: 0,
-    explanation: "La unidad SI para B (densidad de flujo magnético) es el tesla (T)."
+    explanation: "La unidad SI para B (densidad de flujo magnetico) es el tesla (T)."
   },
   {
     question: "La fuerza sobre una carga en movimiento depende de:",
-    options: ["Solo del campo","Solo de la carga","De la carga, velocidad y campo magnético","Solo de la dirección"],
+    options: ["Solo del campo","Solo de la carga","De la carga, velocidad y campo magnÃ©tico","Solo de la direcciÃ³n"],
     correctIndex: 2,
-    explanation: "F = q(v × B). Depende de q, de la velocidad (módulo y dirección) y del campo magnético."
+    explanation: "F = q(v Ã— B). Depende de q, de la velocidad (mÃ³dulo y direcciÃ³n) y del campo magnÃ©tico."
   },
   {
-    question: "La inducción electromagnética ocurre cuando:",
-    options: ["Cambia el flujo magnético","El campo eléctrico es constante","El conductor es perfecto","Hay corriente continua"],
+    question: "La inducciÃ³n electromagnÃ©tica ocurre cuando:",
+    options: ["Cambia el flujo magnÃ©tico","El campo elÃ©ctrico es constante","El conductor es perfecto","Hay corriente continua"],
     correctIndex: 0,
-    explanation: "Una f.e.m. se induce cuando varía el flujo magnético enlazado (ley de Faraday)."
+    explanation: "Una f.e.m. se induce cuando varÃ­a el flujo magnÃ©tico enlazado (ley de Faraday)."
   },
   {
-    question: "Según la ley de Lenz, la corriente inducida:",
-    options: ["Se opone a la causa","Se suma al flujo","Aumenta la energía","No tiene dirección"],
+    question: "SegÃºn la ley de Lenz, la corriente inducida:",
+    options: ["Se opone a la causa","Se suma al flujo","Aumenta la energÃ­a","No tiene direcciÃ³n"],
     correctIndex: 0,
-    explanation: "La corriente inducida se opone al cambio de flujo que la produce, conservando energía."
+    explanation: "La corriente inducida se opone al cambio de flujo que la produce, conservando energÃ­a."
   },
   {
-    question: "¿Cuál NO es una fuente de energía renovable?",
-    options: ["Solar","Eólica","Nuclear","Hidráulica"],
+    question: "Â¿CuÃ¡l NO es una fuente de energÃ­a renovable?",
+    options: ["Solar","EÃ³lica","Nuclear","HidrÃ¡ulica"],
     correctIndex: 2,
-    explanation: "La energía nuclear usa combustible finito (uranio/plutonio), por eso no es renovable."
+    explanation: "La energÃ­a nuclear usa combustible finito (uranio/plutonio), por eso no es renovable."
   },
   {
     question: "Los paneles solares transforman:",
-    options: ["Energía solar en eléctrica","Energía térmica en mecánica","Energía eléctrica en luz","Energía cinética en potencial"],
+    options: ["EnergÃ­a solar en elÃ©ctrica","EnergÃ­a tÃ©rmica en mecÃ¡nica","EnergÃ­a elÃ©ctrica en luz","EnergÃ­a cinÃ©tica en potencial"],
     correctIndex: 0,
     explanation: "Los paneles fotovoltaicos convierten la luz (fotones) en electricidad (efecto fotovoltaico)."
   },
   {
     question: "Los aerogeneradores convierten:",
-    options: ["Energía eléctrica en mecánica","Energía cinética del viento en eléctrica","Energía química en calor","Energía térmica en sonido"],
+    options: ["EnergÃ­a elÃ©ctrica en mecÃ¡nica","EnergÃ­a cinÃ©tica del viento en elÃ©ctrica","EnergÃ­a quÃ­mica en calor","EnergÃ­a tÃ©rmica en sonido"],
     correctIndex: 1,
-    explanation: "Transforman la energía cinética del viento en eléctrica mediante turbina y generador."
+    explanation: "Transforman la energÃ­a cinÃ©tica del viento en elÃ©ctrica mediante turbina y generador."
   },
   {
-    question: "La energía hidroeléctrica aprovecha:",
-    options: ["Energía potencial del agua almacenada","Radiación solar","Calor del subsuelo","Movimiento de las olas"],
+    question: "La energia hidroelectrica aprovecha:",
+    options: ["EnergÃ­a potencial del agua almacenada","Radiacion solar","Calor del subsuelo","Movimiento de las olas"],
     correctIndex: 0,
-    explanation: "Se basa en la energía potencial gravitatoria del agua embalsada que se convierte en eléctrica."
+    explanation: "Se basa en la energÃ­a potencial gravitatoria del agua embalsada que se convierte en electrica."
   },
   {
-    question: "Una ventaja de las energías renovables es que:",
-    options: ["Aumentan el CO‚","Son más contaminantes","Reducen el impacto ambiental","No generan energía suficiente"],
+    question: "Una ventaja de las energias renovables es que:",
+    options: ["Aumentan el COâ€š","Son mas contaminantes","Reducen el impacto ambiental","No generan energia suficiente"],
     correctIndex: 2,
-    explanation: "En general emiten menos CO‚ y contaminantes locales que los combustibles fósiles."
+    explanation: "En general emiten menos COâ€š y contaminantes locales que los combustibles fÃ³siles."
   }
 ];
 
@@ -245,13 +245,13 @@ function renderQuestion() {
 
 function onNextClick() {
   if (stage === 'answering') {
-    // Validar selección
+    // Validar selecciÃ³n
     const selected = document.querySelector('input[name="option"]:checked');
     if (!selected) {
       validationMsg.hidden = false;
       return;
     }
-    // Evaluar y mostrar explicación
+    // Evaluar y mostrar explicaciÃ³n
     evaluateCurrent();
     return;
   }
@@ -275,7 +275,7 @@ function evaluateCurrent() {
   const userAnswer = selected.value;
   const isCorrect = selected.dataset.correct === 'true';
 
-  // Estilos de corrección
+  // Estilos de correcciÃ³n
   wrappers.forEach(w => {
     const input = w.querySelector('input[type="radio"]');
     const isThisCorrect = input.dataset.correct === 'true';
@@ -290,14 +290,14 @@ function evaluateCurrent() {
     updateInlineScore();
   }
 
-  // Mostrar explicación
+  // Mostrar explicaciÃ³n
   explanationEl.innerHTML = `
-    <h3 style="margin:0 0 6px 0;">Explicación</h3>
+    <h3 style="margin:0 0 6px 0;">ExplicaciÃ³n</h3>
     <p style="margin:0;">${q.explanation}</p>
   `;
   explanationEl.classList.remove('hidden');
 
-  // Guardar evaluación para el repaso final
+  // Guardar evaluaciÃ³n para el repaso final
   currentEvaluation = {
     question: q.question,
     user: userAnswer,
@@ -340,12 +340,12 @@ function showResults() {
   const total = questions.length;
   const percent = Math.round((score / total) * 100);
   const feedback =
-    percent === 100 ? "¡Perfecto! ¡"
-    : percent >= 80 ? "¡Muy bien! ="
+    percent === 100 ? "Â¡Perfecto! Â¡"
+    : percent >= 80 ? "Â¡Muy bien! ="
     : percent >= 60 ? "Buen trabajo, puedes mejorar. ='"
-    : "Sigue practicando. =Ø";
+    : "Sigue practicando. =Ã˜";
 
-  scoreElement.textContent = `Tu puntuación final es ${score} de ${total} (${percent}%). ${feedback}`;
+  scoreElement.textContent = `Tu puntuaciÃ³n final es ${score} de ${total} (${percent}%). ${feedback}`;
 
   renderReview();
 }
@@ -357,7 +357,7 @@ function renderReview() {
   const wrong = answersHistory.filter(a => !a.isCorrect);
   if (wrong.length === 0) {
     const ok = document.createElement('p');
-    ok.textContent = 'Has respondido todas las preguntas correctamente. ¡Excelente!';
+    ok.textContent = 'Has respondido todas las preguntas correctamente. Â¡Excelente!';
     review.appendChild(ok);
     return;
   }
@@ -383,7 +383,7 @@ function renderReview() {
 
     const expl = document.createElement('p');
     expl.style.margin = '6px 0 0 0';
-    expl.textContent = `Explicación: ${item.explanation}`;
+    expl.textContent = `ExplicaciÃ³n: ${item.explanation}`;
 
     card.appendChild(h3);
     card.appendChild(your);
@@ -418,5 +418,6 @@ function shuffleArray(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+
 
 
