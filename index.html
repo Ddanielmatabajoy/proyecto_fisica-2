@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Cuestionario interactivo de Física Eléctrica y Energías Renovables" />
+  <title>Cuestionario de Física</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>¡ Cuestionario de Física Eléctrica y Energías Renovables ¡</h1>
+      <p class="subtitle">Responde las preguntas. Verás una explicación al terminar cada una.</p>
+    </header>
+
+    <section class="settings" aria-labelledby="settings-title">
+      <h2 id="settings-title" class="sr-only">Opciones</h2>
+      <label class="switch">
+        <input id="shuffleQuestions" type="checkbox" />
+        <span>Barajar preguntas</span>
+      </label>
+      <label class="switch">
+        <input id="shuffleOptions" type="checkbox" />
+        <span>Barajar opciones</span>
+      </label>
+    </section>
+
+    <section id="quiz">
+      <button id="startBtn" class="btn btn-primary">Comenzar</button>
+
+      <div id="questionContainer" class="hidden" aria-live="polite">
+        <div class="progress">
+          <div class="progress-top">
+            <span id="progressText">Pregunta 1 de 1</span>
+            <span id="scoreInline" aria-live="polite"></span>
+          </div>
+          <div class="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="progressFill" class="progressbar-fill"></div>
+          </div>
+        </div>
+
+        <h2 id="question" class="question"></h2>
+
+        <div id="options" class="options" role="radiogroup" aria-labelledby="question"></div>
+
+        <div id="explanation" class="review-item hidden" role="note" aria-live="polite"></div>
+
+        <p id="validationMsg" class="validation" role="alert" aria-live="assertive" hidden>
+          Por favor, selecciona una opción para continuar.
+        </p>
+
+        <div class="controls">
+          <button id="nextBtn" class="btn" disabled>Siguiente</button>
+        </div>
+      </div>
+
+      <div id="resultContainer" class="hidden" aria-live="polite">
+        <h2>Resultado Final</h2>
+        <p id="score" class="final-score"></p>
+        <div id="review" class="review"></div>
+        <div class="controls">
+          <button id="restartBtn" class="btn btn-secondary">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
