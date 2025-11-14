@@ -3,46 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Cuestionario interactivo de Física Eléctrica y Energías Renovables" />
+  <meta name="description" content="Cuestionario de Física Eléctrica" />
   <title>Cuestionario de Física</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
     <header class="header">
-      <h1>Cuestionario de Fisica 2</h1>
-      <p class="subtitle">Responde las preguntas. Veras una explicacion al terminar cada una.</p>
+      <h1>Cuestionario de Física Eléctrica </h1>
+      <p class="subtitle">Responde las preguntas. Verás una explicación al terminar cada una.</p>
     </header>
 
-    <section class="settings" aria-labelledby="settings-title">
-      <h2 id="settings-title" class="sr-only">Opciones</h2>
-      <label class="switch">
-        <input id="shuffleQuestions" type="checkbox" />
-        <span>Barajar preguntas</span>
-      </label>
-      <label class="switch">
-        <input id="shuffleOptions" type="checkbox" />
-        <span>Barajar opciones</span>
-      </label>
+    <!-- Menú de inicio -->
+    <section id="home" class="setup" aria-labelledby="home-title">
+      <h2 id="home-title" class="sr-only">Menú de inicio</h2>
+
+      <div class="setup-grid">
+        <div class="card">
+          <div class="field">
+            <label class="field-label" for="playerName">Nombre</label>
+            <input id="playerName" class="field-control" type="text" placeholder="Ingresa tu nombre" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="playerCareer">Carrera</label>
+            <input id="playerCareer" class="field-control" type="text" placeholder="Ingresa tu carrera" list="careerOptions" />
+            <datalist id="careerOptions">
+              <option value="Ingeniería Eléctrica"></option>
+              <option value="Ingeniería Electrónica"></option>
+              <option value="Ingeniería Mecánica"></option>
+              <option value="Ingeniería de Energías"></option>
+              <option value="Física"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="card switches">
+          <label class="switch" for="shuffleQuestions">
+            <input id="shuffleQuestions" type="checkbox" />
+            <span>Barajar preguntas</span>
+          </label>
+          <label class="switch" for="shuffleOptions">
+            <input id="shuffleOptions" type="checkbox" />
+            <span>Barajar opciones</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setup-footer">
+        <p id="homeValidation" class="validation" role="alert" aria-live="assertive" hidden>
+          Por favor, ingresa tu nombre y carrera para continuar.
+        </p>
+        <button id="startBtn" class="btn btn-primary">Comenzar</button>
+      </div>
     </section>
 
-    <section id="quiz">
-      <button id="startBtn" class="btn btn-primary">Comenzar</button>
-
-      <div id="questionContainer" class="hidden" aria-live="polite">
+    <section id="quiz" aria-live="polite">
+      <!-- Contenedor de preguntas -->
+      <div id="questionContainer" class="hidden" aria-live="polite" inert>
         <div class="progress">
           <div class="progress-top">
             <span id="progressText">Pregunta 1 de 1</span>
             <span id="scoreInline" aria-live="polite"></span>
           </div>
-          <div class="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0% completado">
             <div id="progressFill" class="progressbar-fill"></div>
           </div>
         </div>
 
-        <h2 id="question" class="question"></h2>
+        <h2 id="question" class="question" tabindex="-1"></h2>
 
-        <div id="options" class="options" role="radiogroup" aria-labelledby="question"></div>
+        <fieldset id="options" class="options" aria-describedby="validationMsg">
+          <legend id="questionLegend" class="sr-only"></legend>
+        </fieldset>
 
         <div id="explanation" class="review-item hidden" role="note" aria-live="polite"></div>
 
@@ -55,19 +87,49 @@
         </div>
       </div>
 
-      <div id="resultContainer" class="hidden" aria-live="polite">
-        <h2>Resultado Final</h2>
+      <!-- Contenedor de resultados -->
+      <div id="resultContainer" class="hidden" aria-live="polite" inert>
+        <h2 id="resultTitle">Resultado Final</h2>
+        <p id="playerMeta" class="summary-metrics"></p>
         <p id="score" class="final-score"></p>
         <div id="review" class="review"></div>
+
+        <!-- Botones principales -->
         <div class="controls">
           <button id="restartBtn" class="btn btn-secondary">Reiniciar</button>
+          <button id="homeBtn" class="btn btn-accent">Volver al inicio</button>
+        </div>
+
+        <!-- Exportación / Historial -->
+        <div class="score-table-wrap">
+          <h3>Historial de intentos guardados</h3>
+          <div id="historyEmpty" style="font-size:0.9rem; opacity:0.8;">No hay intentos guardados todavía.</div>
+          <table id="historyTable" class="scoreboard hidden" aria-describedby="historyCaption">
+            <caption id="historyCaption" class="sr-only">Tabla con intentos previos del quiz</caption>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>Carrera</th>
+                <th>Aciertos</th>
+                <th>Total</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+
+          <div class="controls" style="justify-content:flex-start; margin-top:10px;">
+            <button id="exportJsonBtn" class="btn btn-hint">Exportar JSON</button>
+            <button id="exportCsvBtn" class="btn btn-hint">Exportar CSV</button>
+            <button id="clearHistoryBtn" class="btn btn-danger" style="background:#d93025;">Borrar historial</button>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
-
 
