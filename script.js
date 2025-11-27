@@ -160,8 +160,16 @@ function finishQuiz() {
   const total = shuffledQuestions.length;
   const percent = ((score / total) * 100).toFixed(1);
 
-  // Mostrar solo el puntaje para estudiantes
+  // Actualizar título y contenido para pantalla final de estudiantes
+  document.getElementById("resultTitle").textContent = "Prueba terminada";
+  playerMeta.textContent = `${player.name} – ${player.career}`;
   scoreEl.textContent = `Tu puntaje: ${score}/${total} (${percent}%)`;
+
+  // Ocultar sección de historial para estudiantes
+  const historySection = document.getElementById("historySection");
+  if (historySection) {
+    historySection.classList.add("hidden");
+  }
 
   // Enviar datos a Sheetmonkey (para que el profesor vea los resultados)
   sendToSheet(player.name, player.career, score, total, percent);
