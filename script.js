@@ -173,17 +173,16 @@ function finishQuiz() {
   resultContainer.removeAttribute("inert");
 
   const total = shuffledQuestions.length;
-  const correctCount = userAnswers.filter(a => a.isCorrect).length;
-  const incorrectCount = total - correctCount;
-  const percent = ((correctCount / total) * 100).toFixed(1);
+  const incorrectCount = total - score;
+  const percent = ((score / total) * 100).toFixed(1);
 
   // Actualizar título y contenido para pantalla final de estudiantes
   document.getElementById("resultTitle").textContent = "Resumen de Resultados";
   playerMeta.textContent = `${player.name} – ${player.career}`;
-  scoreEl.textContent = `Tu puntaje: ${correctCount}/${total} (${percent}%)`;
+  scoreEl.textContent = `Tu puntaje: ${score}/${total} (${percent}%)`;
 
   // Render detailed results summary
-  renderResultsSummary(correctCount, incorrectCount, total, percent);
+  renderResultsSummary(score, incorrectCount, total, percent);
 
   // Ocultar sección de historial para estudiantes
   const historySection = document.getElementById("historySection");
@@ -192,7 +191,7 @@ function finishQuiz() {
   }
 
   // Enviar datos a Sheetmonkey (para que el profesor vea los resultados)
-  sendToSheet(player.name, player.career, correctCount, total, percent);
+  sendToSheet(player.name, player.career, score, total, percent);
 }
 
 /**
