@@ -38,6 +38,7 @@ let shuffledQuestions = [];
 let currentIndex = 0;
 let score = 0;
 let player;
+let userAnswers = []; // Track per-question results
 
 // HTML elementos
 const home = document.getElementById("home");
@@ -76,6 +77,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 
   currentIndex = 0;
   score = 0;
+  userAnswers = []; // Reset user answers
   home.classList.add("hidden");
   loadQuestion();
 });
@@ -129,7 +131,20 @@ nextBtn.addEventListener("click", () => {
   }
 
   const q = shuffledQuestions[currentIndex];
-  const correct = parseInt(selected.value) === q.answer;
+  const selectedIndex = parseInt(selected.value);
+  const correct = selectedIndex === q.answer;
+
+  // Store the user's answer with details
+  userAnswers.push({
+    questionIndex: currentIndex,
+    questionText: q.text,
+    selectedIndex: selectedIndex,
+    selectedText: q.options[selectedIndex],
+    correctIndex: q.answer,
+    correctText: q.options[q.answer],
+    isCorrect: correct,
+    explanation: q.explanation
+  });
 
   if (correct) {
     score++;
@@ -158,12 +173,16 @@ function finishQuiz() {
   resultContainer.removeAttribute("inert");
 
   const total = shuffledQuestions.length;
+  const incorrectCount = total - score;
   const percent = ((score / total) * 100).toFixed(1);
 
   // Actualizar título y contenido para pantalla final de estudiantes
-  document.getElementById("resultTitle").textContent = "Prueba terminada";
+  document.getElementById("resultTitle").textContent = "Resumen de Resultados";
   playerMeta.textContent = `${player.name} – ${player.career}`;
   scoreEl.textContent = `Tu puntaje: ${score}/${total} (${percent}%)`;
+
+  // Render detailed results summary
+  renderResultsSummary(score, incorrectCount, total, percent);
 
   // Ocultar sección de historial para estudiantes
   const historySection = document.getElementById("historySection");
@@ -173,6 +192,90 @@ function finishQuiz() {
 
   // Enviar datos a Sheetmonkey (para que el profesor vea los resultados)
   sendToSheet(player.name, player.career, score, total, percent);
+}
+
+/**
+ * Render detailed results summary
+ */
+function renderResultsSummary(correctCount, incorrectCount, total, percent) {
+  const summaryContainer = document.getElementById("resultsSummary");
+  if (!summaryContainer) return;
+
+  // Clear previous content
+  summaryContainer.innerHTML = "";
+
+  // Summary metrics block
+  const metricsBlock = document.createElement("div");
+  metricsBlock.className = "summary-metrics";
+  metricsBlock.setAttribute("role", "status");
+  metricsBlock.setAttribute("aria-label", "Resumen de resultados del cuestionario");
+  metricsBlock.innerHTML = `
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <span class="metric-label">Total de preguntas:</span>
+        <span class="metric-value">${total}</span>
+      </div>
+      <div class="metric-item metric-correct">
+        <span class="metric-label">Respuestas correctas:</span>
+        <span class="metric-value">${correctCount}</span>
+      </div>
+      <div class="metric-item metric-incorrect">
+        <span class="metric-label">Respuestas incorrectas:</span>
+        <span class="metric-value">${incorrectCount}</span>
+      </div>
+      <div class="metric-item metric-percent">
+        <span class="metric-label">Porcentaje de acierto:</span>
+        <span class="metric-value">${percent}%</span>
+      </div>
+    </div>
+  `;
+  summaryContainer.appendChild(metricsBlock);
+
+  // Questions list
+  const questionsListTitle = document.createElement("h3");
+  questionsListTitle.className = "questions-list-title";
+  questionsListTitle.textContent = "Detalle por pregunta";
+  summaryContainer.appendChild(questionsListTitle);
+
+  const questionsList = document.createElement("div");
+  questionsList.className = "questions-review-list";
+  questionsList.setAttribute("role", "list");
+  questionsList.setAttribute("aria-label", "Lista de preguntas con sus respuestas");
+
+  userAnswers.forEach((answer, index) => {
+    const questionItem = document.createElement("div");
+    questionItem.className = `question-review-item ${answer.isCorrect ? 'item-correct' : 'item-incorrect'}`;
+    questionItem.setAttribute("role", "listitem");
+
+    const statusClass = answer.isCorrect ? 'status-correct' : 'status-incorrect';
+    const statusText = answer.isCorrect ? 'Correcta' : 'Incorrecta';
+    const statusIcon = answer.isCorrect ? '✓' : '✗';
+
+    questionItem.innerHTML = `
+      <div class="question-review-header">
+        <span class="question-number">Pregunta ${index + 1}</span>
+        <span class="question-status ${statusClass}" aria-label="Estado: ${statusText}">
+          <span aria-hidden="true">${statusIcon}</span> ${statusText}
+        </span>
+      </div>
+      <p class="question-text">${answer.questionText}</p>
+      <div class="answer-details">
+        <p class="user-answer">
+          <strong>Tu respuesta:</strong> ${answer.selectedText}
+        </p>
+        ${!answer.isCorrect ? `
+        <p class="correct-answer">
+          <strong>Respuesta correcta:</strong> ${answer.correctText}
+        </p>
+        ` : ''}
+      </div>
+    `;
+
+    questionsList.appendChild(questionItem);
+  });
+
+  summaryContainer.appendChild(questionsList);
+  summaryContainer.classList.remove("hidden");
 }
 
 // ----------------- HISTORIAL LOCAL -----------------
