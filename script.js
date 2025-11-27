@@ -54,7 +54,6 @@ const resultContainer = document.getElementById("resultContainer");
 const historyBody = document.getElementById("historyBody");
 const historyEmpty = document.getElementById("historyEmpty");
 const scoreInline = document.getElementById("scoreInline");
-const playerMeta = document.getElementById("playerMeta");
 const scoreEl = document.getElementById("score");
 
 // ----------------- INICIO -----------------
