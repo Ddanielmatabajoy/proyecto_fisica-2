@@ -255,21 +255,6 @@ async function safeText(response) {
 }
 
 /**
- * Generates a UUID for traceability. Falls back to timestamp-based ID if crypto.randomUUID is unavailable.
- */
-function generateUUID() {
-  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
-    return crypto.randomUUID();
-  }
-  // Fallback for older browsers
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
-
-/**
  * Updates the send status UI
  */
 function updateSendStatus(message, type) {
@@ -296,12 +281,7 @@ async function sendToSheet(name, career, score, total, percent) {
     Nombre: name,
     Carrera: career,
     Puntaje: `${score}/${total} (${percent}%)`,
-    Aciertos: score,
-    Total: total,
-    Porcentaje: percent,
-    FechaISO: new Date().toISOString(),
-    FechaLocal: new Date().toLocaleString(),
-    UUID: generateUUID()
+    Fecha: new Date().toLocaleString()
   };
 
   try {
