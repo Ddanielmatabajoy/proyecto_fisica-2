@@ -236,17 +236,107 @@ document.getElementById("restartBtn").addEventListener("click", () => location.r
 document.getElementById("homeBtn").addEventListener("click", () => location.reload());
 
 // ----------------- ENVÍO A SHEETMONKEY -----------------
-function sendToSheet(name, career, score, total, percent) {
-  fetch(formEndpoint, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      Nombre: name,
-      Carrera: career,
-      Puntaje: `${score}/${total} (${percent}%)`,
-      Fecha: new Date().toLocaleString()
-    })
+const sendStatusEl = document.getElementById("sendStatus");
+const restartBtn = document.getElementById("restartBtn");
+const homeBtn = document.getElementById("homeBtn");
+
+/**
+ * Helper to safely read response body as JSON or text
+ */
+async function safeText(response) {
+  try {
+    const text = await response.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Generates a UUID for traceability. Falls back to timestamp-based ID if crypto.randomUUID is unavailable.
+ */
+function generateUUID() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  // Fallback for older browsers
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
   });
+}
+
+/**
+ * Updates the send status UI
+ */
+function updateSendStatus(message, type) {
+  if (!sendStatusEl) return;
+  sendStatusEl.textContent = message;
+  sendStatusEl.className = "send-status send-status--" + type;
+  sendStatusEl.classList.remove("hidden");
+}
+
+/**
+ * Async function to send quiz results to SheetMonkey with error handling and timeout
+ */
+async function sendToSheet(name, career, score, total, percent) {
+  // Disable buttons during send
+  if (restartBtn) restartBtn.disabled = true;
+  if (homeBtn) homeBtn.disabled = true;
+  
+  updateSendStatus("Enviando resultados…", "pending");
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+  const payload = {
+    Nombre: name,
+    Carrera: career,
+    Puntaje: `${score}/${total} (${percent}%)`,
+    Aciertos: score,
+    Total: total,
+    Porcentaje: percent,
+    FechaISO: new Date().toISOString(),
+    FechaLocal: new Date().toLocaleString(),
+    UUID: generateUUID()
+  };
+
+  try {
+    const response = await fetch(formEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const body = await safeText(response);
+      console.error("SheetMonkey error:", response.status, body);
+      updateSendStatus("Error al enviar", "error");
+    } else {
+      updateSendStatus("Resultados enviados", "success");
+    }
+  } catch (err) {
+    clearTimeout(timeoutId);
+    if (err.name === "AbortError") {
+      console.error("SheetMonkey timeout: request aborted after 8s");
+      updateSendStatus("Error al enviar", "error");
+    } else {
+      console.error("SheetMonkey network error:", err);
+      updateSendStatus("Error al enviar", "error");
+    }
+  } finally {
+    // Re-enable buttons
+    if (restartBtn) restartBtn.disabled = false;
+    if (homeBtn) homeBtn.disabled = false;
+  }
 }
 
 // Cargar historial en inicio de resultados
