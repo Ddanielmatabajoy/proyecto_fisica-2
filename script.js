@@ -161,12 +161,11 @@ function finishQuiz() {
   const total = shuffledQuestions.length;
   const percent = ((score / total) * 100).toFixed(1);
 
+  // Mostrar solo el puntaje para estudiantes
   scoreEl.textContent = `Tu puntaje: ${score}/${total} (${percent}%)`;
-  playerMeta.textContent = `${player.name} – ${player.career}`;
 
-  saveToHistory(player.name, player.career, score, total, percent);
+  // Enviar datos a Sheetmonkey (para que el profesor vea los resultados)
   sendToSheet(player.name, player.career, score, total, percent);
-  loadHistory();
 }
 
 // ----------------- HISTORIAL LOCAL -----------------
@@ -339,8 +338,7 @@ async function sendToSheet(name, career, score, total, percent) {
   }
 }
 
-// Cargar historial en inicio de resultados
-loadHistory();
+// Historia local deshabilitada para vista de estudiantes
 
 
 

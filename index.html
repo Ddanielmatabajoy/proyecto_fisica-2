@@ -89,11 +89,13 @@
 
       <!-- Contenedor de resultados -->
       <div id="resultContainer" class="hidden" aria-live="polite" inert>
-        <h2 id="resultTitle">Resultado Final</h2>
-        <p id="playerMeta" class="summary-metrics"></p>
+        <h2 id="resultTitle" class="result-title">Prueba terminada</h2>
         <p id="score" class="final-score"></p>
         <div id="sendStatus" class="send-status hidden" aria-live="polite"></div>
-        <div id="review" class="review"></div>
+
+        <!-- Elementos ocultos para estudiantes -->
+        <p id="playerMeta" class="summary-metrics hidden"></p>
+        <div id="review" class="review hidden"></div>
 
         <!-- Botones principales -->
         <div class="controls">
@@ -101,8 +103,8 @@
           <button id="homeBtn" class="btn btn-accent">Volver al inicio</button>
         </div>
 
-        <!-- Exportación / Historial -->
-        <div class="score-table-wrap">
+        <!-- Exportación / Historial (oculto para estudiantes) -->
+        <div class="score-table-wrap hidden">
           <h3>Historial de intentos guardados</h3>
           <div id="historyEmpty" style="font-size:0.9rem; opacity:0.8;">No hay intentos guardados todavía.</div>
           <table id="historyTable" class="scoreboard hidden" aria-describedby="historyCaption">
