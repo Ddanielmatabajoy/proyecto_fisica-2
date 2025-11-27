@@ -161,12 +161,19 @@ function finishQuiz() {
   const total = shuffledQuestions.length;
   const percent = ((score / total) * 100).toFixed(1);
 
-  scoreEl.textContent = `Tu puntaje: ${score}/${total} (${percent}%)`;
+  // Actualizar título y contenido para pantalla final de estudiantes
+  document.getElementById("resultTitle").textContent = "Prueba terminada";
   playerMeta.textContent = `${player.name} – ${player.career}`;
+  scoreEl.textContent = `Tu puntaje: ${score}/${total} (${percent}%)`;
+
+  // Ocultar sección de historial para estudiantes
+  const historySection = document.getElementById("historySection");
+  if (historySection) {
+    historySection.classList.add("hidden");
+  }
 
   saveToHistory(player.name, player.career, score, total, percent);
   sendToSheet(player.name, player.career, score, total, percent);
-  loadHistory();
 }
 
 // ----------------- HISTORIAL LOCAL -----------------
